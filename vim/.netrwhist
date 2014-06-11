@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/home/gxzhang/grandstream/a20/android/frameworks/base/services/java/com/android/server'
+let g:netrw_dirhist_2='/home/gxzhang/grandstream/a20/android/frameworks/base/services/java/com/android'
+let g:netrw_dirhist_3='/home/gxzhang/grandstream/a20/android/frameworks/base/services/java/com/android/server'
+let g:netrw_dirhist_4='/home/gxzhang/grandstream/a20/android/vendor/grandstream/apps/PhoneCommon/src/com/base/module/phone'
+let g:netrw_dirhist_5='/home/gxzhang/grandstream/a20/android/device/softwinner/wing-k70'
+let g:netrw_dirhist_6='/home/gxzhang/grandstream/a20/android/packages/apps/Settings/src/com/android/settings'
