@@ -77,7 +77,18 @@ autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 
 let g:pydiction_location='~/.vim/complete-dict'  
+" fold
 set nofoldenable
+set fdm=marker
+
+function Createfolder()
+  execute "syn region myFold start='{' end='}' transparent fold"
+  execute "syn sync fromstart"
+  execute "set foldmethod=syntax"
+  execute "set foldlevel=1"
+endfunction
+
+nmap fc :call Createfolder() <CR>
 
 
 set completeopt=longest,menu
@@ -89,8 +100,53 @@ let g:vjde_preview_gui=1
 let g:vjde_iab_exts='.cpp;.c;.vim;.rb'
 let g:floatingwindows="'__Tag_List__',1,40,20;'.prj',1,24,1;'.vimproject',1,24,1;"
 
+let g:html_use_css=1
 
+function! MyToHtml1(line1, line2)
+  " make sure to generate in the correct format
+  let old_css = 1
+  if exists('g:html_use_css')
+    let old_css = g:html_use_css
+  endif
+  let g:html_use_css = 0
 
+  " generate and delete unneeded lines
+  exec a:line1.','.a:line2.'TOhtml'
+  %g/<body/normal k$dgg
+
+  " convert body to a table
+  %s/<body\s*\(bgcolor="[^"]*"\)\s*text=\("[^"]*"\)\s*>/<table \1 cellPadding=0><tr><td><font color=\2>/
+  %s#</body>\(.\|\n\)*</html>#\='</font></td></tr></table>'#i
+
+  %s/bgcolor="#ffffff"/bgcolor="#2a2a2a"/g
+  %s/font color="#000000"/font color="#efefef"/g
+
+  " restore old setting
+  let g:html_use_css = old_css
+endfunction
+command! -range=% MyToHtml1 :call MyToHtml1(<line1>,<line2>)
+
+function! MyToHtml(line1, line2)
+  " make sure to generate in the correct format
+  let old_css = 1
+  if exists('g:html_use_css')
+    let old_css = g:html_use_css
+  endif
+  let g:html_use_css = 0
+
+  " generate and delete unneeded lines
+  exec a:line1.','.a:line2.'TOhtml'
+  %g/<body/normal k$dgg
+
+  " modify background color and font color
+  %s/<body bgcolor="#ffffff" text="#000000">/<body bgcolor="#2a2a2a" text="#efefef">/g
+  " %s/background-color: #ffffff/background-color: #2a2a2a/g
+  " %s/color: #000000/color: #efefef/g
+
+  " restore old setting
+  let g:html_use_css = old_css
+endfunction
+command! -range=% MyToHtml :call MyToHtml(<line1>,<line2>)
 
 
 
