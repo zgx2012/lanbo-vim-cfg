@@ -61,7 +61,12 @@ let Tlist_Display_Tag_Scope=1
 let Tlist_Enable_Dold_Column=1  
 nnoremap <silent> <F8> :TlistToggle<CR>
 
-
+" wordpress
+let VIMPRESS=[{'username':'zgx2012',
+               \'password':'',
+               \'blog_url':'http://127.0.0.1/wordpress'
+               \}]
+map <leader>P :BlogPreview<CR>
 
 " javacomplete.vim
 setlocal omnifunc=javacomplete#Complete
